@@ -1,10 +1,5 @@
 🏠 Brazilian Rent Receipt Generator
 <div align="center">
-https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white
-https://img.shields.io/badge/License-MIT-green?style=for-the-badge
-https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
-https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
-https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white
 
 Professional offline system for generating legally valid rent receipts in Brazil
 
