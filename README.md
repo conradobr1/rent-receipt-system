@@ -1,10 +1,10 @@
 🏠 Brazilian Rent Receipt Generator
 <div align="center">
-https://img.shields.io/badge/Python-3.8%252B-blue?logo=python&logoColor=white
-https://img.shields.io/badge/License-MIT-green
-https://img.shields.io/badge/Platform-Windows%2520%257C%2520Linux%2520%257C%2520macOS-lightgrey
-https://img.shields.io/badge/Status-Production%2520Ready-brightgreen
-https://img.shields.io/badge/Downloads-100%252B-orange
+https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white
+https://img.shields.io/badge/License-MIT-green?style=for-the-badge
+https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
+https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=white
 
 Professional offline system for generating legally valid rent receipts in Brazil
 
@@ -76,6 +76,7 @@ Brazilian Civil Code - Article 320
 "A existência da dívida, bem como a sua extinção, pode ser provada por documento particular, desde que assinado pelo devedor."
 
 What This Means:
+
 ✅ Generated receipts are valid as private documents
 
 ✅ Can be used as proof of payment in legal proceedings
