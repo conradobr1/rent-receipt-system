@@ -11,6 +11,7 @@ Managing rent receipts in Brazil can be complicated, expensive, and often requir
 
 <div align="center"> <img src="https://img.shields.io/badge/100%25_Offline-✓-success" alt="100% Offline"> <img src="https://img.shields.io/badge/Brazilian_Law_Compliant-✓-success" alt="Brazilian Law Compliant"> <img src="https://img.shields.io/badge/Anti_Fraud_Protected-✓-success" alt="Anti-Fraud Protected"> <img src="https://img.shields.io/badge/No_Subscription-✓-success" alt="No Subscription"> </div>
 🚀 Features
+
 🔒 Security & Validation
 Local Blockchain Technology - Each receipt gets unique cryptographic hash
 
