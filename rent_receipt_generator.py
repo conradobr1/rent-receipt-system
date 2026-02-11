@@ -11,6 +11,8 @@ import uuid
 import qrcode
 import base64
 from io import BytesIO
+import subprocess
+import platform
 
 # ---------------- ORGANIZED FOLDERS ----------------
 BASE_FOLDER = "sistema_recibos"
@@ -198,6 +200,30 @@ def load_saved_signature():
     canvas_signature.image = img_tk
     canvas_signature.create_image(0, 0, anchor=NW, image=img_tk)
 
+# ---------------- FUNÇÃO PARA ABRIR PASTA PDF ----------------
+def open_pdf_folder():
+    """Abre a pasta PDF no explorador de arquivos do sistema"""
+    try:
+        pdf_path = os.path.abspath(PDF_FOLDER)
+        
+        # Verifica se a pasta existe
+        if not os.path.exists(pdf_path):
+            messagebox.showwarning("Aviso", f"A pasta PDF não existe:\n{pdf_path}")
+            return
+        
+        # Abre a pasta no explorador de arquivos de acordo com o sistema operacional
+        system = platform.system()
+        
+        if system == "Windows":
+            os.startfile(pdf_path)
+        elif system == "Darwin":  # macOS
+            subprocess.run(["open", pdf_path])
+        else:  # Linux e outros
+            subprocess.run(["xdg-open", pdf_path])
+            
+    except Exception as e:
+        messagebox.showerror("Erro", f"Não foi possível abrir a pasta:\n{str(e)}")
+
 # ---------------- TENANT REGISTRATION ----------------
 def save_tenant():
     name = entry_tenant_name.get()
@@ -336,7 +362,7 @@ def generate_receipt():
     
     # SIGNATURE
     signature_x = 150
-    text_y = start_y - 230
+    text_y = start_y - 300
     
     # "Assinatura:" text on the left
     pdf.drawString(50, text_y, "Assinatura:")
@@ -450,6 +476,17 @@ def verify_receipt():
             font=("Arial", 9, "bold")
         )
 
+# Statistics button
+def show_blockchain_stats():
+    total_receipts = len(blockchain.chain) - 1  # Excludes genesis block
+    messagebox.showinfo("Estatísticas do Sistema", 
+                       f"📊 SISTEMA DE RECIBOS\n\n"
+                       f"📈 Total de Recibos: {total_receipts}\n"
+                       f"📂 Pasta principal: {os.path.abspath(BASE_FOLDER)}\n"
+                       f"📄 PDFs: {PDF_FOLDER}\n"
+                       f"🔗 Blockchain: {BLOCKCHAIN_FOLDER}\n"
+                       f"👥 Locatários: {TENANTS_FOLDER}")
+
 # ---------------- GUI ----------------
 window = Tk()
 window.title("Sistema de Recibos")
@@ -460,9 +497,10 @@ window.resizable(False, False)
 menu = Frame(window, bg="#f0f0f0", height=40)
 menu.pack(fill="x")
 
-Button(menu, text="Cadastro de Locatários", command=show_register, bg="#2196F3", fg="white", width=20).pack(side=LEFT, padx=5, pady=5)
-Button(menu, text="Gerar Recibo", command=show_receipt, bg="#4CAF50", fg="white", width=20).pack(side=LEFT, padx=5, pady=5)
-Button(menu, text="Verificar Recibo", command=show_verify, bg="#FF9800", fg="white", width=20).pack(side=LEFT, padx=5, pady=5)
+Button(menu, text="Cadastro de Locatários", command=show_register, bg="#2196F3", fg="white", width=18).pack(side=LEFT, padx=3, pady=5)
+Button(menu, text="Gerar Recibo", command=show_receipt, bg="#4CAF50", fg="white", width=18).pack(side=LEFT, padx=3, pady=5)
+Button(menu, text="Verificar Recibo", command=show_verify, bg="#FF9800", fg="white", width=18).pack(side=LEFT, padx=3, pady=5)
+Button(menu, text="📁 Pasta PDF", command=open_pdf_folder, bg="#9C27B0", fg="white", width=15).pack(side=LEFT, padx=3, pady=5)
 
 # ---------------- REGISTER SCREEN ----------------
 frame_register = Frame(window)
@@ -550,7 +588,19 @@ Button(
     font=("Arial", 11, "bold"),
     height=2,
     width=30
-).pack(pady=25)
+).pack(pady=15)
+
+# Botão para abrir pasta PDF na tela de recibos
+Button(
+    frame_receipt,
+    text="📁 Abrir Pasta de PDFs",
+    command=open_pdf_folder,
+    bg="#9C27B0",
+    fg="white",
+    font=("Arial", 10, "bold"),
+    height=1,
+    width=25
+).pack(pady=10)
 
 # ---------------- VERIFICATION SCREEN ----------------
 frame_verify = Frame(window)
@@ -581,16 +631,6 @@ label_verify_result = Label(result_frame, text="", justify=LEFT, wraplength=600,
 label_verify_result.pack(pady=10)
 
 # Statistics button
-def show_blockchain_stats():
-    total_receipts = len(blockchain.chain) - 1  # Excludes genesis block
-    messagebox.showinfo("Estatísticas do Sistema", 
-                       f"📊 SISTEMA DE RECIBOS\n\n"
-                       f"📈 Total de Recibos: {total_receipts}\n"
-                       f"📂 Pasta principal: {os.path.abspath(BASE_FOLDER)}\n"
-                       f"📄 PDFs: {PDF_FOLDER}\n"
-                       f"🔗 Blockchain: {BLOCKCHAIN_FOLDER}\n"
-                       f"👥 Locatários: {TENANTS_FOLDER}")
-
 Button(
     frame_verify,
     text="Ver Estatísticas do Sistema",
@@ -600,7 +640,19 @@ Button(
     font=("Arial", 10),
     height=1,
     width=30
-).pack(pady=15)
+).pack(pady=10)
+
+# Botão para abrir pasta PDF na tela de verificação
+Button(
+    frame_verify,
+    text="📁 Abrir Pasta de PDFs",
+    command=open_pdf_folder,
+    bg="#9C27B0",
+    fg="white",
+    font=("Arial", 10),
+    height=1,
+    width=25
+).pack(pady=10)
 
 # ---------------- START ----------------
 load_tenants()
